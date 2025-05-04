@@ -1,10 +1,11 @@
 import math
 import os
 from copy import deepcopy
-from typing import Callable, Type
+from typing import Callable, Optional, Type
 
 import torch
 import torch.distributed as dist
+from tqdm import tqdm
 
 
 class DiLoCo:
@@ -17,15 +18,14 @@ class DiLoCo:
         outer_optimizer_cls: Type[torch.optim.Optimizer],
         outer_optimizer_kwargs: dict,
         train_dataset: torch.utils.data.Dataset,
-        criterion: Callable[..., torch.Tensor],
         batch_size: int,
-        eval_steps: int,
         num_nodes: int,
         num_epochs: int,
         warmup_steps: int,
         diloco_interval: int,
         cosine_anneal: bool = False,
         wandb_kwargs: dict = None,
+        criterion: Optional[Callable[..., torch.Tensor]] = None,
     ) -> None:
         super().__init__()
 
@@ -45,7 +45,6 @@ class DiLoCo:
         ## Training Attributes
         self.criterion = criterion
         self.batch_size = batch_size
-        self.eval_steps = eval_steps
         self.num_nodes = num_nodes
         self.num_epochs = num_epochs
         self.warmup_steps = warmup_steps
@@ -129,6 +128,9 @@ class DiLoCo:
 
         ## Outer Process
         if self.rank == 0:
+            self.progress = tqdm(total=self.max_local_step)
+            print(f"Will run for {self.max_local_step} steps")
+
             ## wandb
             if self.wandb_kwargs is not None:
                 try:
@@ -159,6 +161,10 @@ class DiLoCo:
         if self.rank == 0:
             if self.wandb is not None:
                 self.wandb.finish()
+
+        if self.progress:
+            self.progress.close()
+
         if dist.is_initialized():
             dist.destroy_process_group()
 
@@ -180,6 +186,8 @@ class DiLoCo:
         self.scheduler.step()
 
         if self.rank == 0:
+            self.progress.update(1)
+
             if self.wandb is not None:
                 self.wandb.log(
                     {

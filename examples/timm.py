@@ -7,7 +7,7 @@ import torch.nn.functional as F
 import torchvision.transforms as transforms
 from torchvision.datasets import CIFAR100
 
-from src.core.diloco import DiLoCo
+from distgym.core.diloco import DiLoCo
 
 
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -44,7 +44,6 @@ if __name__ == "__main__":
         train_dataset=ds,
         criterion=F.cross_entropy,
         batch_size=64,
-        eval_steps=200,
         num_nodes=8,
         num_epochs=1,
         warmup_steps=0,
