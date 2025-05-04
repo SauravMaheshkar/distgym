@@ -1,12 +1,23 @@
 [project]
 name = "distgym"
-version = "0.0.1"
+version = "0.0.2"
+authors = [{ name = "Saurav Maheshkar", email = "sauravvmaheshkar@gmail.com" }]
+description = "simulated distributed training"
+readme = ".github/README.md"
 requires-python = ">=3.10"
-license = { file = "LICENSE" }
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"
+]
 dependencies = [
     "torch>=2.7.0",
     "wandb",
 ]
+
+[project.urls]
+repository="https://github.com/SauravMaheshkar/distgym"
 
 [project.optional-dependencies]
 examples = [
