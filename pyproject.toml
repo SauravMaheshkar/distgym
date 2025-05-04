@@ -1,3 +1,7 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
 [project]
 name = "distgym"
 version = "0.0.2"
@@ -13,6 +17,7 @@ classifiers = [
 ]
 dependencies = [
     "torch>=2.7.0",
+    "tqdm>=4.67.1",
     "wandb",
 ]
 
@@ -21,7 +26,9 @@ repository="https://github.com/SauravMaheshkar/distgym"
 
 [project.optional-dependencies]
 examples = [
+  "datasets",
   "timm",
+  "transformers",
 ]
 dev = [
   "pre-commit",

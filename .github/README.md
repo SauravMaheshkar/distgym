@@ -33,7 +33,6 @@ engine = DiLoCo(
     train_dataset=ds,
     criterion=F.cross_entropy,
     batch_size=64,
-    eval_steps=200,
     num_nodes=8,
     num_epochs=1,
     warmup_steps=0,
@@ -56,3 +55,4 @@ engine.fit()
 
 * https://github.com/matttreed/diloco-sim
 * https://github.com/jianbo27/diloco-sim
+* https://github.com/PrimeIntellect-ai/diloco_simple
