@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12"
 ]
 dependencies = [
-    "torch>=2.7.0",
+    "torch",
     "tqdm>=4.67.1",
     "wandb",
 ]
