@@ -2,6 +2,9 @@ simulated distributed training
 
 #### Example
 
+<details>
+<summary>train a timm model on a torchvision dataset</summary>
+
 ```python
 class TimmWrapper(nn.Module):
     def __init__(self, model_id: str, num_classes: int, pretrained: bool) -> None:
@@ -42,6 +45,8 @@ engine = DiLoCo(
 )
 engine.fit()
 ```
+
+</details>
 
 #### Implementations
 

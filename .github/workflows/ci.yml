@@ -39,4 +39,4 @@ jobs:
 
       - name: Ruff
         run: |
-          uv run ruff check src examples
+          uv run ruff check src

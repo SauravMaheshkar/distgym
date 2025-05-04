@@ -13,6 +13,7 @@ examples = [
   "timm",
 ]
 dev = [
+  "pre-commit",
   "ruff"
 ]
 
